@@ -6,6 +6,19 @@ const url = process.env.MONDGODB_URL;
 
 // that is automatically created
 mongoose
-  .connect(url, { useNewUrlParser:true, useUnifiedTopology: true })
-  .then(() => console.log("mongoose is connected"))
-  .catch((err) => console.log(err, "something went wrong"));
+  .connect(url, 
+    { 
+      useNewUrlParser:true,
+      useUnifiedTopology: true 
+    }
+  )
+  .then(
+    () => {
+      console.log("mongoose is connected")
+    }
+  )
+  .catch(
+    (err) => {
+      console.log(err, "something went wrong")
+    }
+  );

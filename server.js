@@ -10,10 +10,10 @@ const domains = [
   "https://movie-dbs.herokuapp.com"
 ];
 
-app.use((req, res, next) => {
+const userController = require("./controllers/user");
+const cityController = require("./controllers/city");
 
-  const url = `${req.protocol}://${req.headers.host}`;
-  const index = domains.indexOf(url);
+app.use((res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -23,13 +23,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => res.send("Helllo world"));
+app.get("/", (res) => res.send("GET REQUEST IS MADE"));
 
-const userController = require("./controllers/userController");
-const movieController = require("./controllers/movieController");
 app.use("/auth", userController);
-app.use("/chicago-cinema", movieController);
+app.use("/chicago-cinema", cityController);
 
 app.listen(PORT || 9000, () => {
-  console.log("listenining on port");
+  console.log("Listening on port 9000");
 });
