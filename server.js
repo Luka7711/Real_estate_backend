@@ -21,7 +21,6 @@ app.use((res, next) => {
 app.use("/auth", userController);
 app.use("/", cityController);
 
-createCitiesCollection()
 
 app.listen(PORT || 9000, () => {
   console.log("Listening on port 9000");
