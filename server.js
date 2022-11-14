@@ -4,16 +4,10 @@ require("dotenv").config();
 require("./db/db");
 
 const PORT = process.env.PORT;
-const domains = [
-  "https://movies-in-park.herokuapp.com",
-  "http://localhost:3000",
-  "https://movie-dbs.herokuapp.com"
-];
+const userController = require("./controllers/user");
+const cityController = require("./controllers/city");
 
-app.use((req, res, next) => {
-
-  const url = `${req.protocol}://${req.headers.host}`;
-  const index = domains.indexOf(url);
+app.use((res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -23,13 +17,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => res.send("Helllo world"));
 
-const userController = require("./controllers/userController");
-const movieController = require("./controllers/movieController");
 app.use("/auth", userController);
-app.use("/chicago-cinema", movieController);
+app.use("/", cityController);
 
 app.listen(PORT || 9000, () => {
-  console.log("listenining on port");
+  console.log("Listening on port 9000");
 });
