@@ -4,8 +4,8 @@ const citySchema = new Schema({
   city: String,
   state_id: String,
   state_name: String,
-  county: String,
-  zipcodes: [{ body: String }]
+  county_name: String,
+  zipcodes: [String]
 });
 
 const City = model("City", citySchema);
