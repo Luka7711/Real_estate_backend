@@ -1,8 +1,77 @@
 const express = require("express");
+const { findOne } = require("../models/city");
 const router = express.Router();
-const User = require("../models/user");
-const axios = require("axios");
+const City = require('../models/city');
+
+//  
+
+/** If empty param, query city by non empty param*/
+
+router.get("/location-search", async(req, res) => {
+
+    try {
+        
+        const { city, state, neighborhood } = req.query;   
+        let result = null;
+
+        if (city) {
+            let foundLocation = await City.findOne({ city: city })
+            if (foundLocation) result = foundLocation;
+        }
+
+        else if (state) {
+            let foundLocation = await City.findOne({ state_id: state })
+            if (foundLocation) result = foundLocation;
+        } 
+
+        else if (neighborhood) {
+            let foundLocation = await City.findOne({ county_name: neighborhood })
+            if (foundLocation) result = foundLocation;
+        };
+
+        if (result) {
+
+            res.status(200)
+            .json({
+                city: result['city'],
+                state_id: result['state_id']
+            })
+
+        } else {
+
+            res.status(200) 
+            .json(null)
+
+        }
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+});
 
 
+router.get("/:zipcode", async(req, res) => {
+
+    try {
+        const city = await City.findOne({ zipcodes: req.params.zipcode });
+        
+        if (city) {
+            res.status(200)
+            .json({
+                city: city['city'],
+                state_id: city['state_id']
+            })
+
+        } else {
+            res.status(200).
+            json(null)
+        }
+
+    } catch(error) {
+        console.log(error)   
+    } 
+})
 
 module.exports = router;
