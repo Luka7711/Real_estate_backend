@@ -1,6 +1,56 @@
 const express = require("express");
+const { findOne } = require("../models/city");
 const router = express.Router();
 const City = require('../models/city');
+
+//  
+
+/** If empty param, query city by non empty param*/
+
+router.get("/location-search", async(req, res) => {
+
+    try {
+        
+        const { city, state, neighborhood } = req.query;   
+        let result = null;
+
+        if (city) {
+            let foundLocation = await City.findOne({ city: city })
+            if (foundLocation) result = foundLocation;
+        }
+
+        else if (state) {
+            let foundLocation = await City.findOne({ state_id: state })
+            if (foundLocation) result = foundLocation;
+        } 
+
+        else if (neighborhood) {
+            let foundLocation = await City.findOne({ county_name: neighborhood })
+            if (foundLocation) result = foundLocation;
+        };
+
+        if (result) {
+
+            res.status(200)
+            .json({
+                city: result['city'],
+                state_id: result['state_id']
+            })
+
+        } else {
+
+            res.status(200) 
+            .json(null)
+
+        }
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+});
+
 
 router.get("/:zipcode", async(req, res) => {
 
