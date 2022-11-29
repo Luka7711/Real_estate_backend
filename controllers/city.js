@@ -34,7 +34,9 @@ router.get("/location-search", async(req, res) => {
             res.status(200)
             .json({
                 city: result['city'],
-                state_id: result['state_id']
+                state_id: result['state_id'],
+                lat: result['coords']['lat'],
+                lng: result['coords']['lng']
             })
 
         } else {
@@ -61,7 +63,9 @@ router.get("/:zipcode", async(req, res) => {
             res.status(200)
             .json({
                 city: city['city'],
-                state_id: city['state_id']
+                state_id: city['state_id'],
+                lat: city['coords']['lat'],
+                lng: city['coords']['lng']
             })
 
         } else {
