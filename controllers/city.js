@@ -72,6 +72,33 @@ router.get("/:zipcode", async(req, res) => {
     } catch(error) {
         console.log(error)   
     } 
+});
+
+router.get("/all-cities/find", async(req, res) => {
+    try {
+        
+        const data = await City.find({});
+
+        let cities = [];
+        let states = [];
+        let neighborhoods = [];
+
+        data.forEach(item => {
+            cities.push(item['city']);
+            states.push(item['state_id']);
+            neighborhoods.push(item['county_name'])
+        });
+        
+        res.status(200)
+        .json({
+            cities: cities,
+            states: states,
+            neighborhoods: neighborhoods
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 module.exports = router;
