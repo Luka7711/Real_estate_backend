@@ -5,7 +5,11 @@ const citySchema = new Schema({
   state_id: String,
   state_name: String,
   county_name: String,
-  zipcodes: [String]
+  zipcodes: [String],
+  coords: {
+    lat: Number,
+    lng: Number
+  }
 });
 
 const City = model("City", citySchema);

@@ -16,7 +16,11 @@ function createCitiesCollection() {
             state_id: data.state_id, 
             state_name: data.state_name,
             county_name: data.county_name,
-            zipcodes: []
+            zipcodes: [],
+            coords: {
+                lat: data.lat,
+                lng: data.lng
+            }
         };
 
         let new_city = new City(dataForModel);
