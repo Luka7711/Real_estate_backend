@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const url = process.env.MONDGODB_URL;
 
+mongoose.set('strictQuery', false);
 
 mongoose.connect(url, 
     { 
