@@ -14,11 +14,13 @@ app.use(cors({
   origin: process.env.CLIENT_URL
 }));
 
-app.use("/auth", userController);
-app.use("/cities", cityController);
-app.get("/", (res) => {
+app.get("/", (req, res) => {
   res.send("SERVER is running")
 });
+
+app.use("/auth", userController);
+app.use("/cities", cityController);
+
 
 app.listen(PORT || 9000, () => {
   console.log("Listening on port")
