@@ -16,7 +16,9 @@ app.use(cors({
 
 app.use("/auth", userController);
 app.use("/cities", cityController);
-
+app.get("/", (res) => {
+  res.send("SERVER is running")
+});
 
 app.listen(PORT || 9000, () => {
   console.log("Listening on port")
