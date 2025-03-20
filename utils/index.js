@@ -4,7 +4,7 @@ const csvParser = require("csv-parser");
 const dir_cities = "./public/uscities.csv";
 const City = require("../models/city");
 
-function createCitiesCollection() { 
+async function createCitiesCollection() { 
     fs.createReadStream(dir_cities)
     .pipe(csvParser())
     .on("data", async(data) => {
